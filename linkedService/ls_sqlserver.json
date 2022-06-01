@@ -1,0 +1,16 @@
+{
+	"name": "ls_sqlserver",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=localhost;initial catalog=BD_EVENTOS_IMERSAO;user id=sa",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJmM2U3OGI4Mi1kMzA2LTQzYzgtYTkzYy1iNmQ5MTJmOWNhMDUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ir-selfhosted-t05winkel",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
