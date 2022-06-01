@@ -64,7 +64,7 @@
 				]
 			},
 			{
-				"name": "Copy data2",
+				"name": "sql_to_lake",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -89,7 +89,26 @@
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
-					"enableStaging": false
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
 				},
 				"inputs": [
 					{
@@ -100,6 +119,17 @@
 							"tableName": "*"
 						}
 					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_generic_delimited_text_2",
+						"type": "DatasetReference",
+						"parameters": {
+							"containerName": "raw",
+							"fileName": "copy_target.csv",
+							"separatorFile": ";"
+						}
+					}
 				]
 			},
 			{
@@ -107,7 +137,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Copy data2",
+						"activity": "sql_to_lake",
 						"dependencyConditions": [
 							"Succeeded"
 						]
