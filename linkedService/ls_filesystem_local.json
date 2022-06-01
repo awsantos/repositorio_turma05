@@ -1,0 +1,17 @@
+{
+	"name": "ls_filesystem_local",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "FileServer",
+		"typeProperties": {
+			"host": "c:\\adf",
+			"userId": "analysis",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJiNjFlZTgxYS1kY2JhLTQ4NDUtOGNjYS1kNTcwZWMzZDc2MGUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ir-selfhosted-t05winkel",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
