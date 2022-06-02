@@ -72,7 +72,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> renameEventoArtista",
 				"renameEventoArtista derive(valorpgtodobrado = eaVALOR_PGTO*2) ~> colunaCalculadaeventoArtista",
-				"renameArtista, colunaCalculadaeventoArtista join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"renameArtista, colunaCalculadaeventoArtista join(COD_ARTISTA == eaFKCOD_ARTISTA,",
 				"     joinType:'inner',",
 				"     broadcast: 'auto')~> ArtistajoinEventoArtista"
 			]
