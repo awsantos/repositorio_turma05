@@ -19,7 +19,15 @@
 					"name": "sEventoArtista"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_fixo_table_cliente",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "renameArtista"
@@ -84,7 +92,34 @@
 				"ArtistajoinEventoArtista aggregate(groupBy(COD_ARTISTA,",
 				"          NOME_ARTISTA),",
 				"     faturamento_total = sum(valorpgtodobrado)) ~> groupByArtistaValorPago",
-				"groupByArtistaValorPago sort(asc(faturamento_total, true)) ~> orderBy"
+				"groupByArtistaValorPago sort(asc(faturamento_total, true)) ~> orderBy",
+				"orderBy sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          CustomerID as integer,",
+				"          NameStyle as boolean,",
+				"          Title as string,",
+				"          FirstName as string,",
+				"          MiddleName as string,",
+				"          LastName as string,",
+				"          Suffix as string,",
+				"          CompanyName as string,",
+				"          SalesPerson as string,",
+				"          EmailAddress as string,",
+				"          Phone as string,",
+				"          PasswordHash as string,",
+				"          PasswordSalt as string,",
+				"          rowguid as string,",
+				"          ModifiedDate as timestamp",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
 			]
 		}
 	}
