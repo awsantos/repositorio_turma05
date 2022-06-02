@@ -17,13 +17,39 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "exemplo_powerquery",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"UserQuerydsgenericdelimitedtext": {
+								"containerName": "raw",
+								"fileName": "powerquerycleintes.csv",
+								"separatorFile": ";"
+							}
+						}
 					},
 					"compute": {
 						"coreCount": 8,
 						"computeType": "General"
 					},
-					"queries": []
+					"queries": [
+						{
+							"queryName": "UserQuery",
+							"dataflowSinks": [
+								{
+									"name": "UserQuerydsgenericdelimitedtext",
+									"dataset": {
+										"referenceName": "ds_generic_delimited_text",
+										"type": "DatasetReference",
+										"parameters": {
+											"containerName": "raw",
+											"fileName": "powerquerycleintes.csv",
+											"separatorFile": ";"
+										}
+									},
+									"script": "sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> UserQuerydsgenericdelimitedtext"
+								}
+							]
+						}
+					]
 				}
 			}
 		],
