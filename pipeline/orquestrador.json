@@ -1,6 +1,41 @@
 {
 	"name": "orquestrador",
 	"properties": {
+		"activities": [
+			{
+				"name": "loop_get_filter_foreach_copy",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "loop_get_filter_foreach_copy",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "loop_lookup_filter_foreach_copy",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "loop_get_filter_foreach_copy",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "loop_lookup_filter_foreach_copy",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
 		"folder": {
 			"name": "orquestrador"
 		},
