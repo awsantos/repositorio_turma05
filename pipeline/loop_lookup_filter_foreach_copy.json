@@ -1,6 +1,44 @@
 {
 	"name": "loop_lookup_filter_foreach_copy",
 	"properties": {
+		"activities": [
+			{
+				"name": "Lookup Controler",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "ds_generic_delimited_text_2",
+						"type": "DatasetReference",
+						"parameters": {
+							"containerName": "controller",
+							"fileName": "controller_tables.csv",
+							"separatorFile": ";"
+						}
+					},
+					"firstRowOnly": false
+				}
+			}
+		],
 		"folder": {
 			"name": "pipelines"
 		},
