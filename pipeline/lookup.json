@@ -81,7 +81,7 @@
 				}
 			},
 			{
-				"name": "Lookup1_copy1_copy1",
+				"name": "Lookup table singleton",
 				"type": "Lookup",
 				"dependsOn": [
 					{
@@ -98,14 +98,29 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_generic_azure_db",
+						"type": "DatasetReference",
+						"parameters": {
+							"schemaName": "SalesLT",
+							"tableName": "Customer"
+						}
+					}
+				}
 			},
 			{
-				"name": "Lookup1_copy1_copy1_copy1",
+				"name": "Lookup csv array mode",
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "Lookup1_copy1_copy1",
+						"activity": "Lookup table singleton",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -118,14 +133,37 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "ds_generic_delimited_text_2",
+						"type": "DatasetReference",
+						"parameters": {
+							"containerName": "transient",
+							"fileName": "cidades.csv",
+							"separatorFile": ";"
+						}
+					},
+					"firstRowOnly": false
+				}
 			},
 			{
 				"name": "Lookup1_copy1_copy1_copy1_copy1",
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "Lookup1_copy1_copy1_copy1",
+						"activity": "Lookup csv array mode",
 						"dependencyConditions": [
 							"Succeeded"
 						]
