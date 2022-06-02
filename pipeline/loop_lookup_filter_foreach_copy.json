@@ -37,6 +37,29 @@
 					},
 					"firstRowOnly": false
 				}
+			},
+			{
+				"name": "Filter Tables",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "Lookup Controler",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup Controler').output.Value",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@equals(item().load_table,'1' )",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"folder": {
