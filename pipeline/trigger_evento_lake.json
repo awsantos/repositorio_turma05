@@ -1,0 +1,9 @@
+{
+	"name": "trigger_evento_lake",
+	"properties": {
+		"folder": {
+			"name": "triggers"
+		},
+		"annotations": []
+	}
+}

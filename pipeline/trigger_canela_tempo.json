@@ -1,0 +1,9 @@
+{
+	"name": "trigger_canela_tempo",
+	"properties": {
+		"folder": {
+			"name": "triggers"
+		},
+		"annotations": []
+	}
+}

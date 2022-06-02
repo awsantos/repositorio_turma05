@@ -1,0 +1,9 @@
+{
+	"name": "trigger_calendario",
+	"properties": {
+		"folder": {
+			"name": "triggers"
+		},
+		"annotations": []
+	}
+}
