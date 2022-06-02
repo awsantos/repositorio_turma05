@@ -35,6 +35,9 @@
 				},
 				{
 					"name": "groupByArtistaValorPago"
+				},
+				{
+					"name": "sort1"
 				}
 			],
 			"scriptLines": [
@@ -79,9 +82,9 @@
 				"     joinType:'inner',",
 				"     broadcast: 'auto')~> ArtistajoinEventoArtista",
 				"ArtistajoinEventoArtista aggregate(groupBy(COD_ARTISTA,",
-				"          NOME_ARTISTA,",
-				"          {} = ERROR_FUNCTION('')),",
-				"     faturamento_total = sum(valorpgtodobrado)) ~> groupByArtistaValorPago"
+				"          NOME_ARTISTA),",
+				"     faturamento_total = sum(valorpgtodobrado)) ~> groupByArtistaValorPago",
+				"groupByArtistaValorPago sort(asc(faturamento_total, true)) ~> sort1"
 			]
 		}
 	}
