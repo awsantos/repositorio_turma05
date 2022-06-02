@@ -13,7 +13,33 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "ds_generic_delimited_text",
+						"type": "DatasetReference",
+						"parameters": {
+							"containerName": "transient",
+							"directoryName": {
+								"value": "@toLower('')",
+								"type": "Expression"
+							},
+							"fileName": "@toLower('')",
+							"separatorFile": "@toLower('')"
+						}
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
 			}
 		],
 		"folder": {
