@@ -1,0 +1,9 @@
+{
+	"name": "orquestrador",
+	"properties": {
+		"folder": {
+			"name": "orquestrador"
+		},
+		"annotations": []
+	}
+}
