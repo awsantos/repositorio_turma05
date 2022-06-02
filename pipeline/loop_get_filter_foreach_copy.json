@@ -78,9 +78,82 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Filter TXT').output",
+						"value": "@activity('Filter TXT').output.Value",
 						"type": "Expression"
-					}
+					},
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_generic_delimited_text_2",
+									"type": "DatasetReference",
+									"parameters": {
+										"containerName": "transient",
+										"fileName": {
+											"value": "@item().name",
+											"type": "Expression"
+										},
+										"separatorFile": ";"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_generic_parquet",
+									"type": "DatasetReference",
+									"parameters": {
+										"containerName": "raw",
+										"fileName": {
+											"value": "@replace(item().name,'.txt','.parquet')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
 				}
 			}
 		],
