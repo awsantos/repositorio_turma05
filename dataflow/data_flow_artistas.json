@@ -32,6 +32,9 @@
 				},
 				{
 					"name": "ArtistajoinEventoArtista"
+				},
+				{
+					"name": "groupByArtistaValorPago"
 				}
 			],
 			"scriptLines": [
@@ -74,7 +77,11 @@
 				"renameEventoArtista derive(valorpgtodobrado = eaVALOR_PGTO*2) ~> colunaCalculadaeventoArtista",
 				"renameArtista, colunaCalculadaeventoArtista join(COD_ARTISTA == eaFKCOD_ARTISTA,",
 				"     joinType:'inner',",
-				"     broadcast: 'auto')~> ArtistajoinEventoArtista"
+				"     broadcast: 'auto')~> ArtistajoinEventoArtista",
+				"ArtistajoinEventoArtista aggregate(groupBy(COD_ARTISTA,",
+				"          NOME_ARTISTA,",
+				"          {} = ERROR_FUNCTION('')),",
+				"     faturamento_total = sum(valorpgtodobrado)) ~> groupByArtistaValorPago"
 			]
 		}
 	}
