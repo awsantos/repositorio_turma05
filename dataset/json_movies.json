@@ -1,0 +1,29 @@
+{
+	"name": "json_movies",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_api_new_y_t",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"tokenAPI": {
+				"type": "string"
+			},
+			"relativeURL": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ds_json"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "@concat(dataset().relativeURL,'&api-key=',dataset().tokenAPI)"
+			}
+		},
+		"schema": {}
+	}
+}
