@@ -25,7 +25,10 @@
 					"name": "renameArtista"
 				},
 				{
-					"name": "select2"
+					"name": "renameEventoArtista"
+				},
+				{
+					"name": "colunaCalculadaeventoArtista"
 				}
 			],
 			"scriptLines": [
@@ -64,7 +67,8 @@
 				"          eaFKCOD_EVENTO = FKCOD_EVENTO",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select2"
+				"     skipDuplicateMapOutputs: true) ~> renameEventoArtista",
+				"renameEventoArtista derive(valorpgtodobrado = eaVALOR_PGTO*2) ~> colunaCalculadaeventoArtista"
 			]
 		}
 	}
