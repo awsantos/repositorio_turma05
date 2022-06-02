@@ -159,7 +159,7 @@
 				}
 			},
 			{
-				"name": "Lookup1_copy1_copy1_copy1_copy1",
+				"name": "Lookup table array mode",
 				"type": "Lookup",
 				"dependsOn": [
 					{
@@ -176,14 +176,30 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_generic_azure_db",
+						"type": "DatasetReference",
+						"parameters": {
+							"schemaName": "SalesLT",
+							"tableName": "Customer"
+						}
+					},
+					"firstRowOnly": false
+				}
 			},
 			{
-				"name": "Lookup1_copy1_copy1_copy1_copy1_copy1",
+				"name": "Lookup table query array mode",
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "Lookup1_copy1_copy1_copy1_copy1",
+						"activity": "Lookup table array mode",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -196,7 +212,24 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select * from information_schema",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "ds_generic_azure_db",
+						"type": "DatasetReference",
+						"parameters": {
+							"schemaName": "*",
+							"tableName": "*"
+						}
+					},
+					"firstRowOnly": false
+				}
 			}
 		],
 		"folder": {
