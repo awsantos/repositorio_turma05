@@ -1,0 +1,51 @@
+{
+	"name": "data_flow_artistas",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_generic_parquet",
+						"type": "DatasetReference"
+					},
+					"name": "sArtista"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_generic_parquet",
+						"type": "DatasetReference"
+					},
+					"name": "sEventoArtista"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          COD_ARTISTA as integer,",
+				"          CPF as string,",
+				"          NOME as string,",
+				"          COD_ESTILO as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     inferDriftedColumnTypes: true,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> sArtista",
+				"source(output(",
+				"          CODIGO as integer,",
+				"          VALOR_PGTO as decimal(19,4),",
+				"          DT_PGTO as date,",
+				"          FKCOD_ARTISTA as integer,",
+				"          FKCOD_EVENTO as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     inferDriftedColumnTypes: true,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> sEventoArtista"
+			]
+		}
+	}
+}
