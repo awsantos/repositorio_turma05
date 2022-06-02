@@ -39,7 +39,7 @@
 				}
 			},
 			{
-				"name": "Lookup1_copy1",
+				"name": "Lookup csv singleton",
 				"type": "Lookup",
 				"dependsOn": [
 					{
@@ -56,14 +56,36 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "ds_generic_delimited_text_2",
+						"type": "DatasetReference",
+						"parameters": {
+							"containerName": "transient",
+							"fileName": "cidades.csv",
+							"separatorFile": ";"
+						}
+					}
+				}
 			},
 			{
 				"name": "Lookup1_copy1_copy1",
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "Lookup1_copy1",
+						"activity": "Lookup csv singleton",
 						"dependencyConditions": [
 							"Succeeded"
 						]
