@@ -20,7 +20,14 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "renameArtista"
+				},
+				{
+					"name": "select2"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          COD_ARTISTA as integer,",
@@ -44,7 +51,22 @@
 				"     validateSchema: false,",
 				"     inferDriftedColumnTypes: true,",
 				"     ignoreNoFilesFound: false,",
-				"     format: 'parquet') ~> sEventoArtista"
+				"     format: 'parquet') ~> sEventoArtista",
+				"sArtista select(mapColumn(",
+				"          COD_ARTISTA,",
+				"          NOME_ARTISTA = NOME",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> renameArtista",
+				"sEventoArtista select(mapColumn(",
+				"          CODIGO,",
+				"          VALOR_PGTO,",
+				"          DT_PGTO,",
+				"          FKCOD_ARTISTA,",
+				"          FKCOD_EVENTO",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2"
 			]
 		}
 	}
