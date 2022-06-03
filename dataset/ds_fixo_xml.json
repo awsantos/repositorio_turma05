@@ -1,0 +1,21 @@
+{
+	"name": "ds_fixo_xml",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_datalake",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "xml"
+		},
+		"annotations": [],
+		"type": "Xml",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Relação de C.C SAP.xlsx",
+				"fileSystem": "transient"
+			}
+		}
+	}
+}
