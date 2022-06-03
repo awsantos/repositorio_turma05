@@ -1,0 +1,33 @@
+{
+	"name": "ds_fixo_xlsx_relacao_ccsap",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_datalake",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "ds_xlsx"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Relação C.C SAP",
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Relação de C.C SAP.xlsx",
+				"fileSystem": "transient"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "id",
+				"type": "String"
+			},
+			{
+				"name": "cor",
+				"type": "String"
+			}
+		]
+	}
+}
