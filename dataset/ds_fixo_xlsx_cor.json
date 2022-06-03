@@ -11,10 +11,9 @@
 		"annotations": [],
 		"type": "Excel",
 		"typeProperties": {
-			"sheetName": "Plan1",
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "plan_cor.xlsx",
+				"fileName": "Relação de C.C SAP.xlsx",
 				"fileSystem": "transient"
 			},
 			"firstRowAsHeader": true
