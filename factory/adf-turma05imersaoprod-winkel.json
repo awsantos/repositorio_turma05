@@ -1,0 +1,9 @@
+{
+	"name": "adf-turma05imersaoprod-winkel",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ff62989c-5b14-4019-8f21-78948108a68a",
+		"tenantId": "5e57560b-babe-4afc-b0a5-3cc87f6acded"
+	}
+}

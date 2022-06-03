@@ -1,0 +1,126 @@
+{
+	"name": "data_flow_artistas",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_generic_parquet",
+						"type": "DatasetReference"
+					},
+					"name": "sArtista"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_generic_parquet",
+						"type": "DatasetReference"
+					},
+					"name": "sEventoArtista"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_fixo_table_cliente",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "renameArtista"
+				},
+				{
+					"name": "renameEventoArtista"
+				},
+				{
+					"name": "colunaCalculadaeventoArtista"
+				},
+				{
+					"name": "ArtistajoinEventoArtista"
+				},
+				{
+					"name": "groupByArtistaValorPago"
+				},
+				{
+					"name": "orderBy"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          COD_ARTISTA as integer,",
+				"          CPF as string,",
+				"          NOME as string,",
+				"          COD_ESTILO as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     inferDriftedColumnTypes: true,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> sArtista",
+				"source(output(",
+				"          CODIGO as integer,",
+				"          VALOR_PGTO as decimal(19,4),",
+				"          DT_PGTO as date,",
+				"          FKCOD_ARTISTA as integer,",
+				"          FKCOD_EVENTO as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     inferDriftedColumnTypes: true,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'parquet') ~> sEventoArtista",
+				"sArtista select(mapColumn(",
+				"          COD_ARTISTA,",
+				"          NOME_ARTISTA = NOME",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> renameArtista",
+				"sEventoArtista select(mapColumn(",
+				"          eaVALOR_PGTO = VALOR_PGTO,",
+				"          eaFKCOD_ARTISTA = FKCOD_ARTISTA,",
+				"          eaFKCOD_EVENTO = FKCOD_EVENTO",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> renameEventoArtista",
+				"renameEventoArtista derive(valorpgtodobrado = eaVALOR_PGTO*2) ~> colunaCalculadaeventoArtista",
+				"renameArtista, colunaCalculadaeventoArtista join(COD_ARTISTA == eaFKCOD_ARTISTA,",
+				"     joinType:'inner',",
+				"     broadcast: 'auto')~> ArtistajoinEventoArtista",
+				"ArtistajoinEventoArtista aggregate(groupBy(COD_ARTISTA,",
+				"          NOME_ARTISTA),",
+				"     faturamento_total = sum(valorpgtodobrado)) ~> groupByArtistaValorPago",
+				"groupByArtistaValorPago sort(asc(faturamento_total, true)) ~> orderBy",
+				"orderBy sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          CustomerID as integer,",
+				"          NameStyle as boolean,",
+				"          Title as string,",
+				"          FirstName as string,",
+				"          MiddleName as string,",
+				"          LastName as string,",
+				"          Suffix as string,",
+				"          CompanyName as string,",
+				"          SalesPerson as string,",
+				"          EmailAddress as string,",
+				"          Phone as string,",
+				"          PasswordHash as string,",
+				"          PasswordSalt as string,",
+				"          rowguid as string,",
+				"          ModifiedDate as timestamp",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+			]
+		}
+	}
+}
