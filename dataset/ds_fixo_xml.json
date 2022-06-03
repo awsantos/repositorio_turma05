@@ -13,6 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "DE_PARA_IMOBILIZADO.xlsx",
 				"fileSystem": "transient"
 			}
 		}
