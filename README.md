@@ -1,1 +1,3 @@
-# repositorio_turma05
+# Imersão Azure Data Engineering
+
+Código resultante da imersão realizada com o professor Luiz Santana
